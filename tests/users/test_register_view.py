@@ -6,6 +6,8 @@ from django.contrib.auth.models import AbstractUser
 
 User: AbstractUser = get_user_model()
 
+import ipdb
+
 
 class UserRegistrationViewTest(APITestCase):
     @classmethod
@@ -89,6 +91,7 @@ class UserRegistrationViewTest(APITestCase):
             "last_name": "Buster",
             "password": "1234",
         }
+
         # Populando o banco pré testagem
         User.objects.create_superuser(**user_data)
         response = self.client.post(self.BASE_URL, data=user_data, format="json")
@@ -101,6 +104,7 @@ class UserRegistrationViewTest(APITestCase):
             "Verifique se as informações do usuário retornada no POST "
             + f"em `{self.BASE_URL}` estão corretas."
         )
+
         self.assertSetEqual(expected_fields, resulted_fields, msg)
 
         # ERROR MESSAGES
